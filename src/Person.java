@@ -1,5 +1,5 @@
 /*
- * @author Stephan Quast
+ * @author squast2s
  */
 public abstract class Person {
 	
@@ -32,7 +32,7 @@ public abstract class Person {
 	}
 	
 	public String toString() {
-		return this.name+" "+this.chromosomen()+" "+this.alter+" "+this.istVolljaehrig()+" "+this.groesse+" "+this.gewicht+" "+this.preisHaarschnitt();		
+		return this.name+" "+this.chromosomen()+" "+this.alter+" "+this.istVolljaehrig()+" "+this.groesse()+" "+this.gewicht()+" "+this.preisHaarschnitt();		
 	}
 	
 	public static int anzahl(){

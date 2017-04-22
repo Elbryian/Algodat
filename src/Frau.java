@@ -1,5 +1,5 @@
 /*
- * @author Stephan Quast
+ * @author squast2s
  */
 public class Frau extends Person {
 	
@@ -23,8 +23,8 @@ public class Frau extends Person {
 	}
 	
 	public int gewicht() {
-		return super.gewicht-5;
-	}
+    	return super.gewicht-5;
+    }
 	
 	public int preisHaarschnitt() {
 		double haarp = (double) super.alter;

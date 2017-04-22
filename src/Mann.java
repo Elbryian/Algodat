@@ -1,5 +1,5 @@
 /*
- * @author Stephan Quast
+ * @author squast2s
  */
 public class Mann extends Person {
 	
