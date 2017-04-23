@@ -13,5 +13,8 @@ public class Abs implements Funktion {
 	public double wert(double x) {
 		return Math.abs(x);
 	}
-	
+
+	public String toString(){
+		return "|x|";
+	}
 }

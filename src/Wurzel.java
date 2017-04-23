@@ -15,4 +15,8 @@ public class Wurzel implements Funktion {
 		return Math.sqrt(x);
 	}
 	
+	public String toString(){
+		return "sqrt(x)";
+	}
+	
 }

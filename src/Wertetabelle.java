@@ -1,5 +1,5 @@
 public class Wertetabelle {
-  public static void ausgabe(Funktion f, double von, double bis, int n) {
+  public static void ausgabe(Funktion f, double von, double bis, int n) throws Exception {
     System.out.println("f(x) = " + f);
     double x = von;
     double h = (bis - von) / (n + 1);

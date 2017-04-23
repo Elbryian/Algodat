@@ -24,4 +24,7 @@ public class RezWurzel implements Funktion {
 		return fgh.wert(x);
 	}
 	
+	public String toString(){
+		return "f(g(x)) mit f(x) = 1/x und g(x) = f(g(x)) mit f(x) = sqrt(x) und g(x) = |x|";
+	}
 }

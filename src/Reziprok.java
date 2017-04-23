@@ -15,4 +15,7 @@ public class Reziprok implements Funktion {
 		return 1/x;
 	}
 	
+	public String toString() {
+		return "1/x";
+	}
 }

@@ -21,4 +21,13 @@ public class Polynom implements Funktion {
 		return p;
 	}
 	
+	public String toString(){
+		String p = "";
+		int i = a.length-1;
+		p = p + a[i] +"*x^"+ (i);
+		for (int j=a.length-2; j>=0; j--) {
+			p = p +" + "+ a[j] +"*x^"+(j);
+		}
+		return p;
+	}
 }
