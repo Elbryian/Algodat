@@ -36,6 +36,6 @@ public class Paar<E,Z> {
 	}
 	
 	public String toString(){
-		return ("("+e.toString()+","+z.toString()+")");
+		return "(" + e + "," + z + ")";
 	}
 }
