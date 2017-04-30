@@ -1,7 +1,7 @@
 /*
 public class FeldFix<T> { // noch unvollstaendig
 */
-public class FeldFix<T> implements Feld<T> { // vollstaendig
+public class FeldFix<T> implements Feld<T> {
   private T[] a;
   public FeldFix(int size) {
     @SuppressWarnings("unchecked")
