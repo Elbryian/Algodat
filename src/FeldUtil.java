@@ -1,24 +1,30 @@
+/*
+ * @author squast2s
+ */
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Comparator;
+
 public class FeldUtil {
-  public static <T> void loesche(Feld<T> f) {
-    for (int i = 0; i < f.size(); ++i) {
-      f.set(i, null);
-    }
-  }
-  public static <T> T letztes(Feld<T> f1, Feld<T> f2) {
-    return f1.size() > f2.size() ? f1.get(f1.size()-1)
-                                 : f2.get(f2.size()-1);
-  }
-public static <T> T min(Feld<T> f,java.util.Comparator<T> c){
-  try {
-    T min = f.get(0);
-    for (int i = 1; i < f.size(); ++i) {
-      T o = f.get(i);
-      if (c.compare(min, o) > 0) { min = o; }
-    }
-    return min;
-  }
-  catch (IndexOutOfBoundsException e) {
-    throw new java.util.NoSuchElementException();
-  }
-}
+	public static <T> void zipGeordnet(Feld<? super Paar<T, T>> ziel, Feld<? extends T> quelle1,
+			Feld<? extends T> quelle2, Comparator<? super T> comp) throws ArrayIndexOutOfBoundsException {
+		List<Paar<T, T>> tmpFeld = new ArrayList<Paar<T, T>>();
+		T o1;
+		T o2;
+		for (int i = 0; i < ziel.size(); i++) {
+			o1 = quelle1.get(i);
+			o2 = quelle2.get(i);
+			Paar<T, T> tmpPaar = new Paar<>(o1, o1);
+			if (comp.compare(o1, o2) <= 0)
+				tmpPaar.setZweites(o2);
+			else
+				tmpPaar.setErstes(o2);
+			tmpFeld.add(tmpPaar);
+		}
+		for (int i = 0; i < ziel.size(); i++) {
+			Paar<T, T> pt = tmpFeld.get(i);
+			ziel.set(i, pt);
+		}
+	}
 }
