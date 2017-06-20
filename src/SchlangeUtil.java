@@ -3,44 +3,46 @@
  */
 
 public class SchlangeUtil {
-	
-	static <T> int size(Schlange<T> w0){
-        int size = 0;
-        Schlange<T> w1 = new SchlangeAlsFeldFix<T>();
-        while(!w0.isEmpty()){
-                size++;
-                w1.insert(w0.remove());
-        }
-        while (!w1.isEmpty())
-                w0.insert(w1.remove());
-        return size;
-	}
 
-	static <T> void revert(Schlange<T> s) {
-	        if(s.isEmpty())
-	                return;
-	        revert(s, s.remove());
-	        }
-	
-	private static <T> void revert(Schlange<T> s, T e) {
-	        if(s.isEmpty()) {
-	                s.insert(e);
-	                return;
-	        }
-	        revert(s, s.remove());
-	        s.insert(e);
-	}
-	
-	static <T> void append(Schlange<? super T> ziel, Schlange<T> quelle) {
-	        Schlange<T> temp =  new SchlangeAlsFeldFix<T>();
-	        T e = null;
-	        while(!quelle.isEmpty()) {
-	                e = quelle.remove();
-	                ziel.insert(e);
-	                temp.insert(e);
-	        }
-	        while(!temp.isEmpty())
-	                quelle.insert(temp.remove());
+	public static <T> void sortMerge(Schlange<T> s, java.util.Comparator<? super T> comp) {
+		if (s.isEmpty()) {
+			return;
+		}
+
+		T e = s.remove();
+		if (s.isEmpty()) {
+			s.insert(e);
+			return;
+		}
+		
+		SchlangeAlsEVL<T> stmp1 = new SchlangeAlsEVL<T>();
+		SchlangeAlsEVL<T> stmp2 = new SchlangeAlsEVL<T>();
+		stmp1.insert(e);
+
+		while (!s.isEmpty()) {
+			stmp2.insert(s.remove());
+			if (!s.isEmpty()) {
+				stmp1.insert(s.remove());
+			}
+		}
+		sortMerge(stmp1, comp);
+		sortMerge(stmp2, comp);
+
+		while (!stmp1.isEmpty() && !stmp2.isEmpty()) {
+			if (comp.compare(stmp1.element(), stmp2.element()) <= 0) {
+				s.insert(stmp1.remove());
+			} else {
+				s.insert(stmp2.remove());
+			}
+		}
+
+		while (!stmp1.isEmpty()) {
+			s.insert(stmp1.remove());
+		}
+		
+		while (!stmp2.isEmpty()) {
+			s.insert(stmp2.remove());
+		}
 	}
 
 }

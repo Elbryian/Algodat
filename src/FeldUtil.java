@@ -2,29 +2,45 @@
  * @author squast2s
  */
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Comparator;
+public class FeldUtil<T> {
 
-public class FeldUtil {
-	public static <T> void zipGeordnet(Feld<? super Paar<T, T>> ziel, Feld<? extends T> quelle1,
-			Feld<? extends T> quelle2, Comparator<? super T> comp) throws ArrayIndexOutOfBoundsException {
-		List<Paar<T, T>> tmpFeld = new ArrayList<Paar<T, T>>();
-		T o1;
-		T o2;
-		for (int i = 0; i < ziel.size(); i++) {
-			o1 = quelle1.get(i);
-			o2 = quelle2.get(i);
-			Paar<T, T> tmpPaar = new Paar<>(o1, o1);
-			if (comp.compare(o1, o2) <= 0)
-				tmpPaar.setZweites(o2);
-			else
-				tmpPaar.setErstes(o2);
-			tmpFeld.add(tmpPaar);
+	static <T> void sortMerge(Feld<T> feld, java.util.Comparator<? super T> comp) {
+		sortMerge(feld, comp, 0, feld.size());
+	}
+
+	static <T> void sortMerge(Feld<T> feld, java.util.Comparator<? super T> comp, int l, int r) {
+		if (r - l <= 1) {
+			return;
 		}
-		for (int i = 0; i < ziel.size(); i++) {
-			Paar<T, T> pt = tmpFeld.get(i);
-			ziel.set(i, pt);
+
+		int m = (l + r) / 2;
+		sortMerge(feld, comp, l, m);
+		sortMerge(feld, comp, m, r);
+		
+		FeldFix<T> tfix = new FeldFix<T>(r-l);
+		FeldCount<T> tcount = new FeldCount<T>(tfix);
+		
+		int i = 0;
+		int jl = l;
+		int jr = m;
+
+		while (jl < m && jr < r) {
+			if (comp.compare(feld.get(jl), feld.get(jr)) <= 0) {
+				tcount.set(i++, feld.get(jl++));
+			} else {
+				tcount.set(i++, feld.get(jr++));
+			}
+		}
+
+		while (jl < m) {
+			tcount.set(i++, feld.get(jl++));
+		}
+		while (jr < r) {
+			tcount.set(i++, feld.get(jr++));
+		}
+		for (int k = 0; k < tcount.size(); ++k) {
+			feld.set(l + k, tcount.get(k));
 		}
 	}
+
 }

@@ -1,4 +1,9 @@
+/*
+ * @author squast2s
+ */
+
 public class EVL<T> {
+  public static int size;
   private class Item {
     private Item next;
     private T v;
@@ -11,35 +16,53 @@ public class EVL<T> {
   public int total() {
     return 2 + 2 * size();
   }
+
   public boolean isEmpty() {
     return first == null;
   }
   // (nur) benoetigt fuer total()
   private int size() {
-    // zu implementieren
-    throw new UnsupportedOperationException();
+    return size;
   }
+
   public T getFirst() {
     if (isEmpty()) {
       throw new java.util.NoSuchElementException();
     }
     return first.v;
   }
+
   public T getLast() {
-    // zu implementieren
-    throw new UnsupportedOperationException();
+    if (isEmpty()) {
+      throw new java.util.NoSuchElementException();
+    }
+    return last.v;
   }
+
   public T setFirst(T v) {
-    // zu implementieren
-    throw new UnsupportedOperationException();
+    if (isEmpty()) {
+      throw new java.util.NoSuchElementException();
+    }
+    T temp = first.v;
+    first.v = v;
+    return temp;
   }
+
   public T setLast(T v) {
-    // zu implementieren
-    throw new UnsupportedOperationException();
+    if (isEmpty()) {
+      throw new java.util.NoSuchElementException();
+    }
+    T temp = last.v;
+    last.v = v;
+    return temp;
   }
+
   public void insertFirst(T v) {
-    // zu implementieren
-    throw new UnsupportedOperationException();
+    Item item = new Item(v);
+    if(isEmpty()) last = item;
+    item.next = first;
+    first = item;
+    ++size;
   }
   public void insertLast(T v) {
     Item item = new Item(v); // neues Hilfsobjekt
@@ -50,6 +73,7 @@ public class EVL<T> {
       last.next = item;      // ... H.O. hintenan
     }
     last = item;             // H.O. in jedem Fall letztes
+    ++size;
   }
   public T removeFirst() {
     T v = getFirst();    // Vorbed.: Liste nicht leer
@@ -57,6 +81,7 @@ public class EVL<T> {
     if (first == null) { // evtl. Liste dann leer
       last = null;
     }
+    --size;
     return v;
   }
   // removeLast() haette Aufwand proportional zu Laenge, ist daher nicht bereitzustellen
